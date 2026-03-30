@@ -33,7 +33,7 @@ struct CreateNoteRequest: Encodable  {
 }
 
 struct UpdateNoteRequest: Encodable  {
-    let id: UUID
+    let id: Int
     let title: String
     let description: String
     let isFavorite: Bool

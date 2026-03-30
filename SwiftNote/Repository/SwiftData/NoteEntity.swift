@@ -14,14 +14,14 @@ import Foundation
 
 @Model
 class NoteEntity: Identifiable {
-    var id: UUID
+    var id: Int
     var title: String
     var descriptionNotes: String
     var createdDate: Date
     var updatedDate: Date
     var isFavorite: Bool
     
-    init(id: UUID,
+    init(id: Int,
           title: String,
          descriptionNotes: String,
           createdDate: Date,

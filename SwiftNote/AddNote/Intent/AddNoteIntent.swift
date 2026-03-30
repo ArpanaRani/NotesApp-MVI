@@ -15,5 +15,5 @@ enum AddNoteIntent {
     case descriptionChanged(String)   // Triggered when user updates the note description
     case favoriteToggled(Bool)       // Triggered when user marks/unmarks as favorite
     case saveNote                    // Triggered when user taps save to create a new note
-    case updateNote(id: UUID, note: NoteModel)  // Triggered when updating an existing note
+    case updateNote(id: Int, note: NoteModel)  // Triggered when updating an existing note
 }

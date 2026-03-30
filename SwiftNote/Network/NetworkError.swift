@@ -5,7 +5,7 @@
 //  Created by Arpana Rani on 27/03/26.
 //
 
-enum NetworkError: Error {
+enum NetworkError: Error , Equatable{
     case invalidURL
     case decodingError
     case noDataAvailable

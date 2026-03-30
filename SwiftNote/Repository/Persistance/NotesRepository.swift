@@ -34,7 +34,7 @@ class SwiftNotesRepository : RepositoryProtocol {
     }
     
     // Fetches a single note by ID using predicate filtering
-    func fetchNote(id: UUID) -> NoteModel? {
+    func fetchNote(id: Int) -> NoteModel? {
         
         let descriptor  = FetchDescriptor<NoteEntity>(
             predicate: #Predicate { $0.id == id }
@@ -54,7 +54,7 @@ class SwiftNotesRepository : RepositoryProtocol {
     // Converts NoteModel to NoteEntity before insertion
     func saveNote(_ note: NoteModel) {
         
-        let entity = NoteEntity(id: note.id, title: note.title, descriptionNotes: note.description , createdDate: Date(), updatedDate: Date(), isFavorite: note.isFavorite )
+        let entity = NoteEntity(id: Int(Date().timeIntervalSince1970), title: note.title, descriptionNotes: note.description , createdDate: Date(), updatedDate: Date(), isFavorite: note.isFavorite )
             self.modelContext.insert(entity)
         do {
             try self.modelContext.save()
@@ -66,7 +66,7 @@ class SwiftNotesRepository : RepositoryProtocol {
     }
     
     // Deletes a note from SwiftData using its ID
-    func deleteNote(_ noteId: UUID) {
+    func deleteNote(_ noteId: Int) {
         let descriptor  = FetchDescriptor<NoteEntity>(
             predicate: #Predicate { $0.id == noteId }
         )
@@ -84,7 +84,7 @@ class SwiftNotesRepository : RepositoryProtocol {
     // Updates an existing note in SwiftData
     // Fetches the entity, modifies fields, and saves context
     
-    func updateNote(_ noteId: UUID , note: NoteModel) {
+    func updateNote(_ noteId: Int , note: NoteModel) {
         
         let descriptor  = FetchDescriptor<NoteEntity>(
             predicate: #Predicate { $0.id == noteId }

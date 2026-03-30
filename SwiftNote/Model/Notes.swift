@@ -8,10 +8,14 @@ import Foundation
 
 // Represents a Note entity used across the app.
 // Acts as the data model for both UI state and persistence layer (SwiftData).
-    
+  
+struct NotesResponse: Decodable {
+    let notes: [NoteModel]
+}
+
 struct NoteModel: Identifiable, Decodable {
     
-    let id: UUID
+    let id: Int
     var title: String
     var description: String
     // Local-only properties not available in api

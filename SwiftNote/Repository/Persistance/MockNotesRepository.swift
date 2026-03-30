@@ -15,7 +15,7 @@ import Foundation
     
 class MockNotesRepository: RepositoryProtocol {
     
-    func updateNote(_ noteId: UUID, note: NoteModel) {
+    func updateNote(_ noteId: Int, note: NoteModel) {
     }
     
 
@@ -23,13 +23,13 @@ class MockNotesRepository: RepositoryProtocol {
         // Returns static sample notes for testing/preview
 
         [
-            NoteModel(id: UUID(), title: "Note 1", description: "Sample 1", createdDate: Date(), updatedDate: Date(), isFavorite: false),
-            NoteModel(id: UUID(), title: "Note 2", description: "Sample 2", createdDate: Date(), updatedDate: Date(), isFavorite: true)
+            NoteModel(id: 1, title: "Note 1", description: "Sample 1", createdDate: Date(), updatedDate: Date(), isFavorite: false),
+            NoteModel(id: 2, title: "Note 2", description: "Sample 2", createdDate: Date(), updatedDate: Date(), isFavorite: true)
         ]
     }
 
-    func fetchNote(id: UUID) -> NoteModel? { nil }
+    func fetchNote(id: Int) -> NoteModel? { nil }
     func saveNote(_ note: NoteModel) { }
-    func deleteNote(_ noteId: UUID) { }
+    func deleteNote(_ noteId: Int) { }
     func updateNote(_ note: NoteModel) { }
 }

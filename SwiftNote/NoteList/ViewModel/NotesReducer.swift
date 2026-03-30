@@ -81,7 +81,7 @@ class NotesReducer :ObservableObject, ReducerProtocol {
         }
     }
 
-    func deleteNotes( _ noteId : UUID) {
+    func deleteNotes( _ noteId : Int) {
         
         self.repository.deleteNote(noteId)
 
