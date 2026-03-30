@@ -1,0 +1,15 @@
+# Xcode
+*.xcuserdatad
+*.xcworkspace
+DerivedData/
+build/
+*.hmap
+*.ipa
+*.xcsettings
+
+# Swift Packages
+Packages/
+.swiftpm/
+
+# macOS system files
+.DS_Store
