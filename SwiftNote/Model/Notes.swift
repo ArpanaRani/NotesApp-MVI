@@ -28,7 +28,7 @@ struct NoteModel: Identifiable, Decodable {
 }
 
 
-//Since api has data wrapped in "data" as dictionary
+//Since api has data wrapped in "posts" as dictionary
 struct NotesResponse: Decodable {
     let posts: [NoteModel]
 }
