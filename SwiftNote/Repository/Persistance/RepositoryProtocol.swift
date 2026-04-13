@@ -15,9 +15,11 @@ import Foundation
 protocol RepositoryProtocol {
     
     func fetchNotes() async  throws -> [NoteModel]
-    func fetchNote(id: UUID) -> NoteModel?
+    func fetchNote(id: Int) -> NoteModel?
     func saveNote(_ note: NoteModel)  async
-    func deleteNote(_ noteId: UUID)
-    func updateNote(_ noteId: UUID , note: NoteModel) 
+    func deleteNote(_ noteId: Int)
+    func updateNote(_ noteId: Int , note: NoteModel)
+    func saveNotes(_ note: [NoteModel])  async
+
 
 }

@@ -11,7 +11,7 @@ import Foundation
     
 struct NoteModel: Identifiable, Decodable {
     
-    let id: UUID
+    let id: Int
     var title: String
     var description: String
     // Local-only properties not available in api
@@ -25,4 +25,10 @@ struct NoteModel: Identifiable, Decodable {
         case title
         case description = "body"
     }
+}
+
+
+//Since api has data wrapped in "data" as dictionary
+struct NotesResponse: Decodable {
+    let posts: [NoteModel]
 }

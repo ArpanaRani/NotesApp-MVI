@@ -29,8 +29,8 @@ class MockNotesReducer : ReducerProtocol{
 
         // Pre-fill some notes for preview WITHOUT touching repository
         self.state.notesList = [
-            NoteModel(id: UUID(), title: "Note 1", description: "Sample 1", createdDate: Date(), updatedDate: Date(), isFavorite: false),
-            NoteModel(id: UUID(), title: "Note 2", description: "Sample 2", createdDate: Date(), updatedDate: Date(), isFavorite: true)
+            NoteModel(id: Int.random(in: 100..<1000), title: "Note 1", description: "Sample 1", createdDate: Date(), updatedDate: Date(), isFavorite: false),
+            NoteModel(id: Int.random(in: 100..<1000), title: "Note 2", description: "Sample 2", createdDate: Date(), updatedDate: Date(), isFavorite: true)
         ]
     }
 }

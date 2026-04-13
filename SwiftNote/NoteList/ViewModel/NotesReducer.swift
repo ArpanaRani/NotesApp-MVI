@@ -22,10 +22,12 @@ class NotesReducer :ObservableObject, ReducerProtocol {
     
     var repository: RepositoryProtocol
     
+    var networkService : NetworkServiceProtocol
     // Repository is injected for flexibility (mock or real implementation)
     // Can be updated later when environment-dependent dependencies (e.g., ModelContext) are available
-    init(repository: RepositoryProtocol) {
-        self.repository = MockNotesRepository()
+    init(repository: RepositoryProtocol , networkService: NetworkServiceProtocol) {
+        self.repository = repository
+        self.networkService = networkService
     }
     
     // Repository is initially injected, but can be updated later.
@@ -70,18 +72,24 @@ class NotesReducer :ObservableObject, ReducerProtocol {
     func loadNotes() {
         
         Task {
-            let newState = state
-            newState.notesList = try await self.repository.fetchNotes()
-            newState.filteredNotes = state.notesList
-            state = newState   //  triggers @Published properly
+            
+            // Step 1: Fetch API notes
+            let dataRetrieved : NotesResponse = try await self.networkService.networkRequest(ApiEndpoint.getNotes)
+            
+            let apiNotes: [NoteModel] = dataRetrieved.posts
+            // step 2: Save to DB
+            await self.repository.saveNotes(apiNotes)
 
-            print(state.notesList)
+            let newState = state
             
-            
+            // Step 3: Fetch local notes (SwiftData)
+            newState.notesList = try await self.repository.fetchNotes()
+            newState.filteredNotes = newState.notesList
+            state = newState   //  triggers @Published properly
         }
     }
 
-    func deleteNotes( _ noteId : UUID) {
+    func deleteNotes( _ noteId : Int) {
         
         self.repository.deleteNote(noteId)
 

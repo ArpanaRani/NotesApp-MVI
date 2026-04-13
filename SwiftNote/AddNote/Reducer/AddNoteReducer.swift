@@ -65,7 +65,7 @@ class AddNoteReducer: ObservableObject {
         
         // Create Note model from current state
         let note = NoteModel(
-            id: UUID(),
+            id: Int.random(in: 100..<1000),
             title: state.title,
             description: state.description,
             createdDate: Date(),

@@ -24,7 +24,7 @@ struct NotesListView: View {
         
     init(repository: RepositoryProtocol) {
         _reducer = StateObject(
-            wrappedValue: NotesReducer(repository:  MockNotesRepository()))
+            wrappedValue: NotesReducer(repository:  MockNotesRepository(), networkService: NetworkService()))
     }
     
     var body: some View {

@@ -16,5 +16,5 @@ import Foundation
 enum NotesIntent {
     case listNotes
     case searchNotes(String)
-    case deleteNote(UUID)
+    case deleteNote(Int)
 }
