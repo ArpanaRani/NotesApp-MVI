@@ -12,4 +12,5 @@ struct LoginState {
     var isLoading: Bool = false
     var errorMessage: String?
     var isLoggedIn: Bool = false
+    var route: LoginRoute = .none
 }

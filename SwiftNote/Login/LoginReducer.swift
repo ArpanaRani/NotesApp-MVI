@@ -8,7 +8,11 @@
 
 import Foundation
 
-    
+enum LoginRoute {
+    case none
+    case notes
+}
+
 func loginReducer(state: inout LoginState, intent: LoginIntent) {
     switch intent {
         
@@ -21,12 +25,19 @@ func loginReducer(state: inout LoginState, intent: LoginIntent) {
         state.password = password
         
     case .loginTapped:
+        
+        guard !state.email.trimmingCharacters(in: .whitespaces).isEmpty,
+              !state.password.trimmingCharacters(in: .whitespaces).isEmpty else {
+            state.errorMessage = "Email and Password cannot be empty"
+            return
+        }
         state.isLoading = true
         state.errorMessage = nil
         
     case .loginSuccess:
         state.isLoading = false
         state.isLoggedIn = true
+        state.route = .notes
         
     case .loginFailure(let error):
         state.isLoading = false
