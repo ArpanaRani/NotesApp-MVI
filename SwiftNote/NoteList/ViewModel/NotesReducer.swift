@@ -12,88 +12,101 @@ import Combine
 // updating the state, and coordinating data operations via the repository.
 // Ensures unidirectional data flow: Intent → Reducer → State → View.
 
-    
 @MainActor
-class NotesReducer :ObservableObject, ReducerProtocol {
+class NotesReducer: ObservableObject, ReducerProtocol {
     
-    // Holds the current UI state. Any changes trigger UI updates via @Published.
-   // set -> The variable can be read from anywhere, but it can only be modified inside the class.
-    @Published private(set) var state =  NotesState ()
+    @Published private(set) var state = NotesState()
     
     var repository: RepositoryProtocol
+    var networkService: NetworkServiceProtocol
     
-    var networkService : NetworkServiceProtocol
-    // Repository is injected for flexibility (mock or real implementation)
-    // Can be updated later when environment-dependent dependencies (e.g., ModelContext) are available
-    init(repository: RepositoryProtocol , networkService: NetworkServiceProtocol) {
+    init(repository: RepositoryProtocol, networkService: NetworkServiceProtocol) {
         self.repository = repository
         self.networkService = networkService
     }
     
-    // Repository is initially injected, but can be updated later.
-    // This allows switching to a SwiftData-backed repository once
-    // ModelContext becomes available from the SwiftUI environment.
     func updateRepository(_ repository: RepositoryProtocol) {
         self.repository = repository
     }
     
-    func reduce( action: NotesIntent) {
+    func reduce(action: NotesIntent) {
         reduce(state: &state, action: action)
     }
+    
     func reduce(state: inout NotesState, action: NotesIntent) {
         
         switch action {
             
         case .listNotes:
-            // Handle listing notes (e.g., load from repository)
             loadNotes()
-            break
-        
+            
+        case .setNotes(let notes):
+            state.notesList = notes
+            applySearch()
+            
         case .searchNotes(let searchText):
+            state.searchText = searchText
+            applySearch()
             
-            state.filteredNotes.removeAll()
-
-             state.searchText = searchText
-            
-                if state.searchText.isEmpty {
-                    state.filteredNotes = state.notesList
-                } else {
-                    state.filteredNotes =   state.notesList.filter {
-                        $0.title.localizedCaseInsensitiveContains(searchText)
-                    }
-                }
         case .deleteNote(let id):
-            // Handle deleting a note
             deleteNotes(id)
-            break
+            
+        case .refreshFromDB:
+            refreshFromDB()
         }
     }
     
+    func refreshFromDB() {
+        Task {
+            let notes = try await repository.fetchNotes()
+            
+            await MainActor.run {
+                self.state.notesList = notes
+                self.state.filteredNotes = notes
+            }
+        }
+    }
+    private func applySearch() {
+        if state.searchText.isEmpty {
+            state.filteredNotes = state.notesList
+        } else {
+            state.filteredNotes = state.notesList.filter {
+                $0.title.localizedCaseInsensitiveContains(state.searchText)
+            }
+        }
+    }
     func loadNotes() {
         
         Task {
+            await MainActor.run {
+                state.isLoading = true   //  show loader
+            }
             
-            // Step 1: Fetch API notes
-            let dataRetrieved : NotesResponse = try await self.networkService.networkRequest(ApiEndpoint.getNotes)
-            
-            let apiNotes: [NoteModel] = dataRetrieved.posts
-            // step 2: Save to DB
-            await self.repository.saveNotes(apiNotes)
-
-            let newState = state
-            
-            // Step 3: Fetch local notes (SwiftData)
-            newState.notesList = try await self.repository.fetchNotes()
-            newState.filteredNotes = newState.notesList
-            state = newState   //  triggers @Published properly
+            do {
+                let dataRetrieved: NotesResponse =
+                    try await networkService.networkRequest(ApiEndpoint.getNotes)
+                
+                let apiNotes = dataRetrieved.posts
+                
+                await repository.saveNotes(apiNotes)
+                
+                let localNotes = try await repository.fetchNotes()
+                
+                await MainActor.run {
+                    state.notesList = localNotes
+                    state.filteredNotes = localNotes
+                    state.isLoading = false   //  hide loader
+                }
+                
+            } catch {
+                await MainActor.run {
+                    state.isLoading = false
+                }
+                print("Error:", error)
+            }
         }
     }
-
-    func deleteNotes( _ noteId : Int) {
-        
-        self.repository.deleteNote(noteId)
-
+    func deleteNotes(_ noteId: Int) {
+        repository.deleteNote(noteId)
     }
-
 }
-

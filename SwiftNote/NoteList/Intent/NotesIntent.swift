@@ -17,4 +17,6 @@ enum NotesIntent {
     case listNotes
     case searchNotes(String)
     case deleteNote(Int)
+    case setNotes([NoteModel])
+    case refreshFromDB
 }

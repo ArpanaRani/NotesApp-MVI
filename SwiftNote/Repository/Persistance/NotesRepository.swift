@@ -105,24 +105,36 @@ class SwiftNotesRepository : RepositoryProtocol {
             print("Delete failed: \(error)")
         }
     }
-    
-    func saveNotes(_ notes: [NoteModel]) {
+        
+    func saveNotes(_ notes: [NoteModel]) async {
         for note in notes {
-            let entity = NoteEntity(
-                id:  note.id,
-                title: note.title,
-                descriptionNotes: note.description,
-                createdDate: Date(),
-                updatedDate: Date(),
-                isFavorite: note.isFavorite
+            
+            let noteId = note.id
+            // Check if already exists
+            let fetchRequest = FetchDescriptor<NoteEntity>(
+                predicate: #Predicate { $0.id == noteId }
             )
             
-            modelContext.insert(entity)
+            if let existing = try? modelContext.fetch(fetchRequest).first {
+                //  Update existing
+                existing.title = note.title
+                existing.descriptionNotes = note.description
+                existing.updatedDate = Date()
+                existing.isFavorite = note.isFavorite
+            } else {
+                // Insert new
+                let entity = NoteEntity(
+                    id: note.id,
+                    title: note.title,
+                    descriptionNotes: note.description,
+                    createdDate: Date(),
+                    updatedDate: Date(),
+                    isFavorite: note.isFavorite
+                )
+                modelContext.insert(entity)
+            }
         }
-        do {
-            try modelContext.save() // single save → batch effect
-        } catch {
-            print("Failed to save notes:", error)
-        }
+        
+        try? modelContext.save()
     }
 }
