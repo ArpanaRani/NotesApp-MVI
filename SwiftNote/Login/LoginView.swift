@@ -101,8 +101,8 @@ struct LoginView: View {
             }
             .background(Color(.systemGray5).ignoresSafeArea())
             .navigationDestination(isPresented: Binding(
-                get: { store.state.isLoggedIn },
-                set: { _ in }
+                get: { store.state.route == .notes },
+                set: { _ in store.state.route = .none }
             )) {
                 NotesListView(repository: MockNotesRepository())
                     .modelContainer(for: NoteEntity.self)
@@ -110,3 +110,4 @@ struct LoginView: View {
         }
     }
 }
+

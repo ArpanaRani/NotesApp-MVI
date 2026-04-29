@@ -8,7 +8,11 @@
 
 import Foundation
 
-    
+enum LoginRoute {
+    case none
+    case notes
+}
+
 func loginReducer(state: inout LoginState, intent: LoginIntent) {
     switch intent {
         
@@ -33,6 +37,7 @@ func loginReducer(state: inout LoginState, intent: LoginIntent) {
     case .loginSuccess:
         state.isLoading = false
         state.isLoggedIn = true
+        state.route = .notes
         
     case .loginFailure(let error):
         state.isLoading = false
