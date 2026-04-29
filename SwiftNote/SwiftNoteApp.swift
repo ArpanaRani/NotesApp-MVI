@@ -19,10 +19,7 @@ struct SwiftNoteApp: App {
 
     var body: some Scene {
         WindowGroup {
-            // Using MockNotesRepository for development/preview purposes
-            NotesListView(repository: MockNotesRepository())
-            // Configures SwiftData container for NoteEntity
-                .modelContainer(for: NoteEntity.self)
+            LoginView()
         }
     }
 }
