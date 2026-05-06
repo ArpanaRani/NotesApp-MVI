@@ -13,21 +13,26 @@ import Combine
 final class LoginStore: ObservableObject {
     
     @Published  var state = LoginState()
+    
+    private let biometricAuth = BiometricAuthService()
+    
+    init() {
+        refreshSessionFlags()
+    }
   
     
     func send(_ intent: LoginIntent) {
         
-        // Step 1: reduce state
+        //  reduce state
         loginReducer(state: &state, intent: intent)
         
-        // Step 2: handle side effects
+        //  handle side effects
         handleSideEffects(intent)
     }
-    private func restoreSession() {
-        if let token = try? KeychainManager.shared.retrieve(account: "AuthToken") {
-            print("Token found:", token)
-            state.isLoggedIn = true
-        }
+    
+    private func refreshSessionFlags() {
+        state.hasSavedSession = (try? KeychainManager.shared.retrieve(account: "AuthToken")) != nil
+        state.biometry = biometricAuth.availableBiometry()
     }
     
     private func handleSideEffects(_ intent: LoginIntent) {
@@ -73,9 +78,26 @@ final class LoginStore: ObservableObject {
                     } catch {
                         print("Error saving password to keychain:", error)
                     }
+                    
+                    refreshSessionFlags()
                     send(.loginSuccess)
                 } else {
                     send(.loginFailure("Enter valid credentials"))
+                }
+            }
+            
+        case .biometricTapped:
+            Task {
+                guard state.hasSavedSession else {
+                    send(.loginFailure("No saved session found. Please login once with email/password."))
+                    return
+                }
+                
+                do {
+                    try await biometricAuth.authenticate(reason: "Login with Face ID to access your notes.")
+                    send(.loginSuccess)
+                } catch {
+                    send(.loginFailure("Face ID authentication failed."))
                 }
             }
             
