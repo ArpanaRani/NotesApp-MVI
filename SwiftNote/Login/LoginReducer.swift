@@ -34,6 +34,10 @@ func loginReducer(state: inout LoginState, intent: LoginIntent) {
         state.isLoading = true
         state.errorMessage = nil
         
+    case .biometricTapped:
+        state.isLoading = true
+        state.errorMessage = nil
+        
     case .loginSuccess:
         state.isLoading = false
         state.isLoggedIn = true

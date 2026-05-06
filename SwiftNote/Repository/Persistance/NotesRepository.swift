@@ -74,6 +74,7 @@ class SwiftNotesRepository : RepositoryProtocol {
             let retrivedEntity = try self.modelContext.fetch(descriptor)
             if let entity = retrivedEntity.first {
                      modelContext.delete(entity)
+                     try modelContext.save()
                  }
 
              } catch {

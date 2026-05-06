@@ -10,6 +10,7 @@ enum LoginIntent {
     case emailChanged(String)
     case passwordChanged(String)
     case loginTapped
+    case biometricTapped
     case loginSuccess
     case loginFailure(String)
 }

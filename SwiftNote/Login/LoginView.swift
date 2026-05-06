@@ -83,6 +83,20 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .disabled(store.state.isLoading)
                     
+                    if store.state.hasSavedSession, store.state.biometry != .none {
+                        Button {
+                            store.send(.biometricTapped)
+                        } label: {
+                            Text(store.state.biometry == .faceID ? "Login with Face ID" : "Login with Touch ID")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                        }
+                        .background(Color.black)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .disabled(store.state.isLoading)
+                    }
+                    
                     // Error Message
                     if let error = store.state.errorMessage {
                         Text(error)

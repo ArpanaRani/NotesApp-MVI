@@ -13,4 +13,6 @@ struct LoginState {
     var errorMessage: String?
     var isLoggedIn: Bool = false
     var route: LoginRoute = .none
+    var hasSavedSession: Bool = false
+    var biometry: BiometricAuthService.Biometry = .none
 }

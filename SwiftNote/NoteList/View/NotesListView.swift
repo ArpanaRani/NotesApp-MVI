@@ -53,12 +53,22 @@ struct NotesListView: View {
                else if reducer.state.filteredNotes.isEmpty {
                     ContentUnavailableView("No Notes available", systemImage: "tray")
                 } else {
-                    List(reducer.state.filteredNotes) { note in
-                        NavigationLink {
-                            NoteDetailView(note: note)
-                        } label: {
-                            Text(note.title)
+                    List {
+                        ForEach(reducer.state.filteredNotes) { note in
+                            NavigationLink {
+                                NoteDetailView(note: note)
+                            } label: {
+                                Text(note.title)
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    reducer.reduce(action: .deleteNote(note.id))
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         }
+                        .onDelete(perform: deleteNotes)
                     }
                 }
             }
@@ -82,6 +92,10 @@ struct NotesListView: View {
                         Image(systemName: "plus")
                     }
                 }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    EditButton()
+                }
             }
         }
         .sheet(isPresented: $isAddNote) {
@@ -98,6 +112,13 @@ struct NotesListView: View {
             
             //  API → save to SwiftData
             reducer.reduce(action: .listNotes)
+        }
+    }
+    
+    private func deleteNotes(at offsets: IndexSet) {
+        for index in offsets {
+            let note = reducer.state.filteredNotes[index]
+            reducer.reduce(action: .deleteNote(note.id))
         }
     }
 }
