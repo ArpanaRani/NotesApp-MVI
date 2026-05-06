@@ -10,7 +10,21 @@
 This project demonstrates a Notes app built using MVI architecture in SwiftUI.
 - Integrated SwiftData with MVI to maintain a single source of truth
 
+##  Features
+
+- Securely stores user email and password using iOS Keychain  
+- Retrieves saved credentials on app launch   
+- Supports biometric authentication (Face ID) for quick and secure login  
+- Create, view, and manage notes  
+- Swipe to delete notes from the list  
+- Seamless and state-driven UI updates  
+
+---
+
 ##  Architecture
+This project follows **MVI (Model-View-Intent)** architecture:
+User Action → Intent → Reducer → State → UI  
+
 - Intent → User actions
 - State → UI state
 - Reducer → Handles logic
@@ -22,57 +36,57 @@ This project demonstrates a Notes app built using MVI architecture in SwiftUI.
 ## Demo
 <img width="400" height="820" alt="Screen Recording 2026-04-29 at 5 16 11 PM" src="https://github.com/user-attachments/assets/e64cd229-6bf5-41e8-bc4c-8b2f52564ef5" />
 
-##  Flow
-User Action → Intent → Reducer → State → UI
+##  Security
+
+- Uses iOS Keychain for encrypted local storage  
+- Face ID authentication via LocalAuthentication framework  
+
+---
 
 ##  Data Persistence (SwiftData)
 
-This app uses **SwiftData** for local data storage.
-
 - Notes are stored locally using SwiftData models  
-- Data is fetched through the repository layer  
-- The UI reflects changes automatically through state updates  
+- Repository layer handles data operations  
+- UI updates automatically based on state changes  
 
+---
 
-## Keychain Integration (NEW)
-This project also integrates Apple Keychain Services for secure credential management.
+##  Keychain Integration
 
- # Features
-   * Securely stores user email and password
-   * Retrieves saved credentials on app launch
-   * Enables auto-login functionality
-   * Provides seamless login experience without re-entering credentials
+### Keychain Flow
+User Login → Save Credentials in Keychain → App Relaunch → Fetch → Auto-login / Auto-fill → Optional Face ID Authentication  
 
+### Components
 
-Uses iOS Keychain for encrypted local storage
-Keychain Flow
-User Login → Save Credentials in Keychain → App Relaunch → Fetch from Keychain → Auto-login / Auto-fill
+**KeychainManager**
+- Handles secure storage and retrieval of credentials  
+- Abstracts Apple Keychain APIs  
 
-## Architecture Update
-In addition to MVI + SwiftData:
-   ## KeychainManager
-    * Handles secure storage and retrieval of credentials
-    * Abstracts Apple Keychain APIs
+**LoginStore**
+- Manages login state  
+- Integrates Keychain for persistence logic  
 
-   ## LoginStore
-    * Manages login state
-    * Integrates with Keychain for persistence logic
+---
 
-## Key Learnings
- * Implementing MVI in SwiftUI
- * Managing local persistence with SwiftData
- * Secure credential storage using Keychain
- * Combining authentication flow with local persistence
- * State-driven UI architecture
+##  Example App Flow
 
+1. User enters email & password  
+2. Credentials are saved in Keychain  
+3. On next launch, app checks Keychain  
+4. If data exists → auto-login / auto-fill  
+5. User taps "Add Note"  
+6. Intent is triggered  
+7. Reducer processes the intent  
+8. SwiftData saves the note  
+9. State updates  
+10. UI refreshes automatically  
 
-##  Example Flow
-1. User enters email & password
-2. Credentials are saved in Keychain
-3. On next launch: - App checks Keychain
-4. If data exists → auto-login or auto-fill occursUser taps "Add Note"
-5. Intent is triggered
-6. Reducer processes the intent
-7. SwiftData saves the note
-8. State updates
-9. UI automatically refreshes  
+---
+
+##  Key Learnings
+
+- Implementing MVI in SwiftUI  
+- Managing local persistence with SwiftData  
+- Secure credential storage using Keychain  
+- Biometric authentication (Face ID) integration  
+- State-driven UI architecture  
