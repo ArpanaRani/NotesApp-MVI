@@ -8,6 +8,7 @@
 
 /* Begin PBXFileReference section */
 		86091E7E2F69087B007AC8E7 /* SwiftNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		86091EA02F69087C007AC8E7 /* SwiftNoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftNoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +17,22 @@
 			path = SwiftNote;
 			sourceTree = "<group>";
 		};
+		86091EA12F69087C007AC8E7 /* SwiftNoteTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SwiftNoteTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		86091E7B2F69087B007AC8E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		86091EA32F69087C007AC8E7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				86091E802F69087B007AC8E7 /* SwiftNote */,
+				86091EA12F69087C007AC8E7 /* SwiftNoteTests */,
 				86091E7F2F69087B007AC8E7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				86091E7E2F69087B007AC8E7 /* SwiftNote.app */,
+				86091EA02F69087C007AC8E7 /* SwiftNoteTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +85,29 @@
 			productReference = 86091E7E2F69087B007AC8E7 /* SwiftNote.app */;
 			productType = "com.apple.product-type.application";
 		};
+		86091EA22F69087C007AC8E7 /* SwiftNoteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 86091EA82F69087C007AC8E7 /* Build configuration list for PBXNativeTarget "SwiftNoteTests" */;
+			buildPhases = (
+				86091EA42F69087C007AC8E7 /* Sources */,
+				86091EA32F69087C007AC8E7 /* Frameworks */,
+				86091EA52F69087C007AC8E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				86091EA72F69087C007AC8E7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				86091EA12F69087C007AC8E7 /* SwiftNoteTests */,
+			);
+			name = SwiftNoteTests;
+			packageProductDependencies = (
+			);
+			productName = SwiftNoteTests;
+			productReference = 86091EA02F69087C007AC8E7 /* SwiftNoteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +120,10 @@
 				TargetAttributes = {
 					86091E7D2F69087B007AC8E7 = {
 						CreatedOnToolsVersion = 26.2;
+					};
+					86091EA22F69087C007AC8E7 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 86091E7D2F69087B007AC8E7;
 					};
 				};
 			};
@@ -100,12 +142,20 @@
 			projectRoot = "";
 			targets = (
 				86091E7D2F69087B007AC8E7 /* SwiftNote */,
+				86091EA22F69087C007AC8E7 /* SwiftNoteTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		86091E7C2F69087B007AC8E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		86091EA52F69087C007AC8E7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +172,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		86091EA42F69087C007AC8E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXContainerItemProxy section */
+		86091EA62F69087C007AC8E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86091E762F69087B007AC8E7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 86091E7D2F69087B007AC8E7;
+			remoteInfo = SwiftNote;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		86091EA72F69087C007AC8E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 86091E7D2F69087B007AC8E7 /* SwiftNote */;
+			targetProxy = 86091EA62F69087C007AC8E7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		86091E872F69087C007AC8E7 /* Debug */ = {
@@ -312,6 +387,60 @@
 			};
 			name = Release;
 		};
+		86091EA92F69087C007AC8E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5N247T5SC6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = arpana.SwiftNoteTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftNote.app/SwiftNote";
+			};
+			name = Debug;
+		};
+		86091EAA2F69087C007AC8E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5N247T5SC6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = arpana.SwiftNoteTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftNote.app/SwiftNote";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -329,6 +458,15 @@
 			buildConfigurations = (
 				86091E8A2F69087C007AC8E7 /* Debug */,
 				86091E8B2F69087C007AC8E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		86091EA82F69087C007AC8E7 /* Build configuration list for PBXNativeTarget "SwiftNoteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86091EA92F69087C007AC8E7 /* Debug */,
+				86091EAA2F69087C007AC8E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
