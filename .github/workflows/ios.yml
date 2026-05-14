@@ -2,9 +2,9 @@ name: iOS starter workflow
 
 on:
   push:
-    branches: [ "feature/mvi-architecture" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "feature/mvi-architecture" ]
+    branches: [ "main" ]
 
 jobs:
   build:
