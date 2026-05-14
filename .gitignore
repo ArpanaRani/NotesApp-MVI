@@ -1,15 +1,22 @@
-# Xcode
-*.xcuserdatad
-*.xcworkspace
+# Xcode user data
+xcuserdata/
+*.xcuserstate
+
+# Build folders
 DerivedData/
 build/
-*.hmap
-*.ipa
-*.xcsettings
 
-# Swift Packages
+# Swift Package Manager
+.build/
 Packages/
 .swiftpm/
 
-# macOS system files
+# macOS
 .DS_Store
+
+# Archives
+*.ipa
+
+# Xcode settings
+*.hmap
+*.xcsettings
