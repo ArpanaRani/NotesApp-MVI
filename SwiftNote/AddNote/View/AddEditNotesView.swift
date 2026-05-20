@@ -11,18 +11,18 @@ import SwiftUI
 // Sends user actions as Intents to the reducer, maintaining
 // unidirectional data flow (MVI architecture).
 struct AddEditNotesView: View {
-    
+
     @Environment(\.dismiss) var dismiss
     @ObservedObject var reducer: AddNoteReducer
-        
+
     var body: some View {
         VStack(spacing: 20) {
-            
+
             Text("Add Note")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .padding(.top)
-            
+
             TextField(
                 "Title",
                 text: Binding(
@@ -34,7 +34,7 @@ struct AddEditNotesView: View {
             .background(Color(.systemGray6))
             .cornerRadius(8)
             .padding(.horizontal)
-            
+
             TextEditor(
                 text: Binding(
                     get: { reducer.state.description },
@@ -46,7 +46,7 @@ struct AddEditNotesView: View {
             .background(Color(.systemGray6))
             .cornerRadius(8)
             .padding(.horizontal)
-            
+
             Toggle(
                 "Favorite",
                 isOn: Binding(
@@ -55,9 +55,9 @@ struct AddEditNotesView: View {
                 )
             )
             .padding(.horizontal)
-            
+
             Spacer()
-            
+
             Button {
                 reducer.sendIntent(.saveNote)
             } label: {

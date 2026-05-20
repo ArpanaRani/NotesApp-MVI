@@ -8,6 +8,6 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    
-    func networkRequest <T: Decodable>( _ endPoint: ApiEndpoint ) async throws -> T
+
+    func networkRequest<T: Decodable>( _ endPoint: ApiEndpoint ) async throws -> T
 }

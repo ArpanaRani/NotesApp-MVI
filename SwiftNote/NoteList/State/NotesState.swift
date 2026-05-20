@@ -11,14 +11,12 @@ import Combine
 // automatically reflect in the UI.
 
 class NotesState {
-    
+
      var notesList: [NoteModel] = []
      var isLoading: Bool = false
      var isSearchActive: Bool = false
      var isNoteDeleted: Bool = false
-     var isNoteSaved : Bool = false
+     var isNoteSaved: Bool = false
      var filteredNotes: [NoteModel] = []
      var searchText: String = ""
 }
-
-

@@ -8,9 +8,9 @@ import Foundation
 
 // Represents a Note entity used across the app.
 // Acts as the data model for both UI state and persistence layer (SwiftData).
-    
+
 struct NoteModel: Identifiable, Decodable {
-    
+
     let id: Int
     var title: String
     var description: String
@@ -19,7 +19,6 @@ struct NoteModel: Identifiable, Decodable {
     var updatedDate: Date = Date()
     var isFavorite: Bool = false
 
-
     enum CodingKeys: String, CodingKey {
         case id
         case title
@@ -27,8 +26,7 @@ struct NoteModel: Identifiable, Decodable {
     }
 }
 
-
-//Since api has data wrapped in "posts" as dictionary
+// Since api has data wrapped in "posts" as dictionary
 struct NotesResponse: Decodable {
     let posts: [NoteModel]
 }

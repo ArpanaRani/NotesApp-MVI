@@ -20,7 +20,7 @@ class NoteEntity: Identifiable {
     var createdDate: Date
     var updatedDate: Date
     var isFavorite: Bool
-    
+
     init(id: Int,
           title: String,
          descriptionNotes: String,
@@ -37,7 +37,7 @@ class NoteEntity: Identifiable {
      }
 }
 
-//Extension to add a function for mapping NoteEntity to NoteModel
+// Extension to add a function for mapping NoteEntity to NoteModel
 extension NoteEntity {
     // Converts SwiftData entity into domain model
     func toNoteModel() -> NoteModel {
@@ -48,5 +48,5 @@ extension NoteEntity {
                   updatedDate: updatedDate,
                   isFavorite: isFavorite)
     }
-    
+
 }

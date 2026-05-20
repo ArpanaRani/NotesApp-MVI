@@ -26,13 +26,13 @@ struct AnyEncodable: Encodable {
     }
 }
 
-struct CreateNoteRequest: Encodable  {
+struct CreateNoteRequest: Encodable {
     let title: String
     let description: String
     let isFavorite: Bool
 }
 
-struct UpdateNoteRequest: Encodable  {
+struct UpdateNoteRequest: Encodable {
     let id: UUID
     let title: String
     let description: String

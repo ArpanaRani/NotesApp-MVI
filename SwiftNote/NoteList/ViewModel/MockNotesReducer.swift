@@ -10,18 +10,16 @@ import Foundation
 // Provides pre-filled sample data without relying on the actual repository or persistence layer,
 // enabling faster UI development and isolation from real data sources.
 
-    
 @MainActor
-class MockNotesReducer : ReducerProtocol{
-    
+class MockNotesReducer: ReducerProtocol {
+
     func reduce(state: inout NotesState, action: NotesIntent) {
-        
+
     }
-    
+
     typealias State = NotesState
-    
+
     typealias Action = NotesIntent
-    
 
     let mockRepository = MockNotesRepository()
     let state  = NotesState()
