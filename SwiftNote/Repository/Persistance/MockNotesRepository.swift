@@ -5,23 +5,20 @@
 //  Created by Arpana Rani on 17/03/26.
 //
 
-
 import Foundation
 
 // Mock implementation of RepositoryProtocol used for testing and development.
 // Provides static sample data and no-op implementations for write operations,
 // allowing the app to function without a real persistence layer (e.g., SwiftData or API).
 // Useful for SwiftUI previews and isolating UI/business logic from data sources.
-    
+
 class MockNotesRepository: RepositoryProtocol {
     func saveNotes(_ note: [NoteModel]) async {
-        
+
     }
-    
-    
+
     func updateNote(_ noteId: Int, note: NoteModel) {
     }
-    
 
     func fetchNotes() async throws -> [NoteModel] {
         // Returns static sample notes for testing/preview

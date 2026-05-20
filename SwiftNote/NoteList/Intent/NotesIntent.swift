@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 // Represents all user actions (Intents) for the  Note list screen.
 // Each case corresponds to a specific interaction from the UI,
 // which will be processed by the Reducer to update the state.

@@ -10,21 +10,21 @@ import SwiftData
 
 struct LoginView: View {
     @StateObject private var store = LoginStore()
-    
+
     var body: some View {
-        
+
         NavigationStack {
-            
+
             VStack {
                 Spacer()
-                
+
                 VStack(spacing: 16) {
-                    
+
                     // Title
                     Text("Welcome Back")
                         .font(.title)
                         .fontWeight(.bold)
-                    
+
                     // Email Field
                     TextField(
                         "Email",
@@ -40,7 +40,7 @@ struct LoginView: View {
                     .textContentType(.username)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
-                    
+
                     // Password Field
                     SecureField(
                         "Password",
@@ -53,7 +53,7 @@ struct LoginView: View {
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
                     .textContentType(.password)
-                    
+
                     Text("Any email/password can be used. Credentials are securely stored using Keychain for learning purposes.")
                         .font(.footnote)
                         .foregroundColor(.gray)
@@ -65,13 +65,13 @@ struct LoginView: View {
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.center)
                         .padding(.top, 4)
-                    
+
                     // Loading
                     if store.state.isLoading {
                         ProgressView()
                             .padding(.top, 8)
                     }
-                    
+
                     // Login Button
                     Button("Login") {
                         store.send(.loginTapped)
@@ -82,7 +82,7 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .disabled(store.state.isLoading)
-                    
+
                     if store.state.hasSavedSession, store.state.biometry != .none {
                         Button {
                             store.send(.biometricTapped)
@@ -96,7 +96,7 @@ struct LoginView: View {
                         .cornerRadius(10)
                         .disabled(store.state.isLoading)
                     }
-                    
+
                     // Error Message
                     if let error = store.state.errorMessage {
                         Text(error)
@@ -110,7 +110,7 @@ struct LoginView: View {
                 .cornerRadius(16)
                 .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
                 .padding(.horizontal)
-                
+
                 Spacer()
             }
             .background(Color(.systemGray5).ignoresSafeArea())
@@ -124,4 +124,3 @@ struct LoginView: View {
         }
     }
 }
-

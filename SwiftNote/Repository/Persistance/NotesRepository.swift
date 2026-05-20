@@ -12,18 +12,18 @@ import SwiftData
 // Handles CRUD operations for notes by interacting with ModelContext.
 // Converts between NoteEntity (SwiftData layer) and NoteModel (app layer),
 // ensuring separation of concerns and clean architecture.
-    
-class SwiftNotesRepository : RepositoryProtocol {
-        
-    var modelContext : ModelContext
-    
+
+class SwiftNotesRepository: RepositoryProtocol {
+
+    var modelContext: ModelContext
+
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
-    
+
     // Fetches all notes from SwiftData and maps them to NoteModel
     func fetchNotes() async throws -> [NoteModel] {
-        
+
      let descriptor = FetchDescriptor<NoteEntity>()
         do {
            let entity = try self.modelContext.fetch(descriptor)
@@ -32,39 +32,37 @@ class SwiftNotesRepository : RepositoryProtocol {
             throw error
         }
     }
-    
+
     // Fetches a single note by ID using predicate filtering
     func fetchNote(id: Int) -> NoteModel? {
-        
+
         let descriptor  = FetchDescriptor<NoteEntity>(
             predicate: #Predicate { $0.id == id }
         )
         do {
             let retrivedEntity = try self.modelContext.fetch(descriptor)
             return retrivedEntity.first?.toNoteModel()
-        }
-        catch {
+        } catch {
             print("Fetch note for \(id)  failed: \(error)")
 
         }
         return nil
     }
-    
+
     // Saves a new note to SwiftData
     // Converts NoteModel to NoteEntity before insertion
     func saveNote(_ note: NoteModel) {
-        
-        let entity = NoteEntity(id: note.id, title: note.title, descriptionNotes: note.description , createdDate: Date(), updatedDate: Date(), isFavorite: note.isFavorite )
+
+        let entity = NoteEntity(id: note.id, title: note.title, descriptionNotes: note.description, createdDate: Date(), updatedDate: Date(), isFavorite: note.isFavorite )
             self.modelContext.insert(entity)
         do {
             try self.modelContext.save()
-        }
-        catch{
+        } catch {
             print("Save failed: \(error)")
         }
-        
+
     }
-    
+
     // Deletes a note from SwiftData using its ID
     func deleteNote(_ noteId: Int) {
         let descriptor  = FetchDescriptor<NoteEntity>(
@@ -81,12 +79,12 @@ class SwiftNotesRepository : RepositoryProtocol {
                  print("Delete failed: \(error)")
              }
     }
-        
+
     // Updates an existing note in SwiftData
     // Fetches the entity, modifies fields, and saves context
-    
-    func updateNote(_ noteId: Int , note: NoteModel) {
-        
+
+    func updateNote(_ noteId: Int, note: NoteModel) {
+
         let descriptor  = FetchDescriptor<NoteEntity>(
             predicate: #Predicate { $0.id == noteId }
         )
@@ -97,25 +95,24 @@ class SwiftNotesRepository : RepositoryProtocol {
                 entity.descriptionNotes = note.description
                 entity.updatedDate = Date()
                 entity.isFavorite = note.isFavorite
-                
-                
+
                 try modelContext.save()
             }
-            
+
         } catch {
             print("Delete failed: \(error)")
         }
     }
-        
+
     func saveNotes(_ notes: [NoteModel]) async {
         for note in notes {
-            
+
             let noteId = note.id
             // Check if already exists
             let fetchRequest = FetchDescriptor<NoteEntity>(
                 predicate: #Predicate { $0.id == noteId }
             )
-            
+
             if let existing = try? modelContext.fetch(fetchRequest).first {
                 //  Update existing
                 existing.title = note.title
@@ -135,7 +132,7 @@ class SwiftNotesRepository : RepositoryProtocol {
                 modelContext.insert(entity)
             }
         }
-        
+
         try? modelContext.save()
     }
 }

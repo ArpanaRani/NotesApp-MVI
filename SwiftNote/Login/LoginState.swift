@@ -5,7 +5,6 @@
 //  Created by Arpana Rani on 28/04/26.
 //
 
-
 struct LoginState {
     var email: String = ""
     var password: String = ""

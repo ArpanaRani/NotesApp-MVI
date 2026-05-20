@@ -20,3 +20,6 @@ Packages/
 # Xcode settings
 *.hmap
 *.xcsettings
+
+.bundle/
+vendor/
